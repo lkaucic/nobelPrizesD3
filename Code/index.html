@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>World Map Visualization</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Add any necessary styles for the map container */
+    #map-container {
+      width: 100%;
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+    <div id="map-container"></div>
+  
+    <select id="category-picker">
+      <option value="choose">choose category</option>
+      <option value="physics">physics</option>
+      <option value="chemistry">chemistry</option>
+      <option value="literature">literature</option>
+      <option value="medicine">medicine</option>
+      <option value="peace">peace</option>
+      <option value="economics">economics</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <div id="popup" class="popup">
+      <div id="popup-close" class="popup-close">&times;</div>
+      <div id="popup-content" class="popup-content">
+        <svg id="pie-chart" width="200" height="200"></svg>
+      </div>
+    </div>    
+  
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    
+    <script src="script.js"></script>
+  </body>
+  
+</html>

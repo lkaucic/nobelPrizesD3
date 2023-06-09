@@ -1,0 +1,255 @@
+\documentclass[12pt]{article}
+\usepackage[sorting = none, style = ieee, doi = false]{biblatex}
+\usepackage{csquotes}
+\usepackage{tocloft}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{soul}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{pythonhighlight}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{bm}
+\usepackage{algpseudocode}
+\usepackage{lscape}
+\usepackage{multicol}
+% klikabilan TOC i reference
+\usepackage[croatian]{babel}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{xurl}
+
+%--------postavke dokumenta--------------
+\usepackage
+[
+a4paper,
+left = 25mm,
+right = 20mm,
+top = 25mm,
+bottom = 25mm
+]
+{geometry}
+
+\newcommand{\signature}[2][9em]{%
+  \begin{tabular}[t]{ p{#1} p{#1} }
+    \strut\raggedleft
+    \raisebox{-.5ex}[0pt][0pt]{\bfseries #2} & \\
+    \cline{2-2}
+    & \centering\scriptsize\itshape \small{(Luka Kaučić)}
+  \end{tabular}
+}
+
+
+
+\renewcommand{\baselinestretch}{1.5}
+\addbibresource{library.bib}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\thesection-\arabic{equation}}
+\newcommand{\brix}{$^{\circ}$\,Brix}
+
+\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+%---------------------------------------
+
+%following two lines add break in bibpliography list for long url-s and similar
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+
+
+\counterwithin{figure}{section}
+\setlength{\belowcaptionskip}{-15pt}
+\counterwithin{table}{section}
+\captionsetup[table]{skip=3pt}
+
+\renewcommand\thefigure{\thesection.\arabic{figure}.}
+\renewcommand\thetable{\thesection.\arabic{table}.}
+\captionsetup[figure]{labelsep=space}
+\captionsetup[table]{labelsep=space}
+
+\begin{document}
+
+
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{Projektni zadatak - Luka Kaučić}
+\fancyfoot[R]{\thepage}
+
+% Define custom colors
+\definecolor{codegreen}{rgb}{0.2,0.6,0.2}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+
+% Define custom style for the listings
+\lstdefinestyle{arduino}{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    stringstyle=\color{codegreen},
+    commentstyle=\color{codegray},
+    backgroundcolor=\color{backcolor},
+    showstringspaces=false,
+    breaklines=true,
+    frame=tb,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    xleftmargin=0.5cm,
+    framexleftmargin=0.5em,
+    aboveskip=1.5em,
+    belowskip=1.5em,
+    captionpos=b,
+    escapeinside={(*}{*)},
+}
+
+\lstdefinestyle{python}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  stringstyle=\color{codegreen},
+  commentstyle=\color{codegray},
+  backgroundcolor=\color{backcolor},
+  showstringspaces=false,
+  breaklines=true,
+  frame=tb,
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  xleftmargin=0.5cm,
+  framexleftmargin=0.5em,
+  aboveskip=1.5em,
+  belowskip=1.5em,
+  captionpos=b,
+  escapeinside={(*}{*)},
+}
+
+\renewcommand{\lstlistingname}{Izlistanje}
+\setlength\cftparskip{8pt} %prored u TOC
+%\selectfont
+
+\begin{titlepage}
+\pagenumbering{gobble}
+    \begin{center}
+        \large\textbf{SVEUČILIŠTE JOSIPA JURJA STROSSMAYERA U OSIJEKU}\\[16pt]
+         \large\textbf{FAKULTET ELEKTROTEHNIKE, RAČUNARSTVA I INFORMACIJSKIH TEHNOLOGIJA OSIJEK}\\[1in]
+         \large\textbf{Sveučilišni diplomski studij računarstva}\\
+         \large\textbf{Vizualizacija podataka}
+         \vspace*{3cm}
+
+        \sc\LARGE\textbf{Vizualizacija statistike Nobelovih nagrada}
+        
+        \vspace*{1cm}
+        \large\textbf{Projektni zadatak}\\
+        \vspace*{2.5cm}
+        \Large\textbf{Luka Kaučić}\\
+        \vspace*{3cm}
+        \normalsize\textbf {Osijek, 2023.}
+
+    \end{center}
+\end{titlepage}
+\newpage
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\newpage
+\pagenumbering{arabic}
+\section{DEFINIRANJE PROJEKTNOG ZADATKA}
+Ovaj projektni zadatak napravljen je u sklopu kolegija Vizualizacija podataka na Sveučilišnom diplomskom studiju računarstva. U nastavku poglavlja dat će se pregled projektnog zadatka, odabranog podatkovnog skupa, kao i postupaka predobrade istog. Na kraju će se po dostupnim podacima i sličnim projektima dostupnima na internetu dati prijedlog vrsta prikaza koje će se u ovom radu koristiti. 
+\subsection{Projektni zadatak}
+Za temu projektnog zadatka odabrana je vizualizacija statistike Nobelovih nagrada. Potrebno je dati pregled osvojenih Nobelovih nagrada po državama svijeta, na način da se jasno može razlikovati količina osvojenih Nobelovih nagrada po zemljama. Nadalje, potrebno je dati i prikaz statistike po spolovima za odabranu zemlju i kategoriju. Izvorni kod za projekt nalazi se na sljedećoj poveznici: \url{https://github.com/lkaucic/nobelPrizesD3.git}
+\subsection{Podaci i predobrada}
+Podatkovni skup preuzet je s \url{https://www.kaggle.com/datasets/rishidamarla/nobel-prize-winners-19002020?resource=download&select=nobel_prize_by_winner.csv} u formatu CSV datoteke, a sadrži sljedeće stupce:
+\begin{multicols}{3}
+\begin{enumerate}
+    \item Id
+    \item Firstname
+    \item Surname
+    \item Born
+    \item Died
+    \item BornCountry
+    \item BornCountryCode
+    \item BornCity
+    \item DiedCountry
+    \item DiedCountryCode
+    \item Gender
+    \item Year
+    \item Category
+    \item OverallMotivation
+    \item Share
+    \item Motivation
+    \item Name
+    \item City
+    \item Country
+\end{enumerate}
+\end{multicols}
+\newpage
+Prilikom predobrade podataka uviđeno je sljedeće:
+\begin{itemize}
+\item dobitnici su muškarci/žene i organizacije; radi jednostavnosti i smislenosti vizualizacije, organizacije se neće razmatrati
+
+\item na pojedinim unosima nisu navedeni godina, područje za koje je osoba dobila Nobelovu nagradu te većina ostalih podataka; s obzirom na to, takvi unosi neće se razmatrati
+
+\item većina vrijednosti stupca „overallMotivation“ nedostaju pa se taj stupac u cjelosti neće razmatrati
+
+\item cilj projekta je prikazati podatke u kontekstu zemalja, drugim riječima relevantni podaci vezani su uz zemlju, spol, godinu i područje dobivene nagrade; s obzirom na to, podaci pripadajućih institucija te  određenih osobnih podataka neće se razmatrati 
+
+\item Korišten standard za notaciju država je alpha-2 (dva slova, npr. GB) dok je u geojson datoteci korišten alpha-3 standard (tri slova, npr. GBR); prema tome, bilo je potrebno prepraviti standard u korištenom podatkovnom skupu (zato što je isto jednostavnije od promjene standarda u geojson datoteci)
+\end{itemize}
+Nakon predobrade podaci su svedeni na sljedeće stupce:
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item Firstname
+        \item Surname
+        \item BornCountry
+        \item BornCountryCode
+        \item Gender
+        \item Year
+        \item Category
+        \item Motivation
+    \end{enumerate}
+\end{multicols}
+\subsection{Relevantne vrste prikaza za korištene podatke}
+S obzirom da za svakog dobitnika postoje podaci po zemljama i područjima, moguće je prikazati podatke na karti svijeta. Definiranjem skale boje na istoj moguće je prikazati zemlje s manje dobivenih nagrada (slabiji intenzitet boje) i s više (jači intenzitet boje). Podaci o odnosu osvojenih nagrada po kategorijama ili spolu može se prikazati tortnim dijagramom.
+\newpage
+\section{DIZAJN VIZUALIZACIJE PODATAKA}
+U ovom poglavlju istražuju se ključni aspekti dizajna vizualizacije statistike Nobelovih nagrada u D3 JavaScript okruženju. Fokus je usmjeren na postavljanje ciljeva vizualizacije, razvoj skice, pregled postojećih rješenja i odabir boja za optimalnu prezentaciju podataka. Cilj je stvoriti informacijski bogatu i vizualno privlačnu vizualizaciju. Prvo će se baviti pitanjima na koja želi pružiti odgovor putem vizualizacije, kako bi se usmjerila pažnja na relevantne aspekte podataka i korisničke potrebe. Zatim će se istražiti proces razvoja skice vizualizacije, koji omogućuje testiranje ideja i osiguravanje jasne komunikacije informacija o Nobelovim nagradama. Pregled postojećih rješenja pružit će inspiraciju i uvid u najbolje prakse koje se mogu primijeniti. Također će se istražiti važnost odabira boja za poboljšanje čitljivosti, naglašavanje ključnih podataka i stvaranje ugodnog korisničkog iskustva.
+\subsection{Pitanja na koja vizualizacija daje odgovor}
+U ovom potpoglavlju istražuju se ključna pitanja na koja se odgovor pruža putem vizualizacije statistike Nobelovih nagrada. Proučavaju se raspodjela dobitnika Nobelove nagrade prema različitim kriterijima te se analiziraju promjene kroz godine i među zemljama. Ovdje su iznesena pitanja koja se istražuju:
+
+\begin{itemize}
+\item Koja zemlja ima više, a koja ima manje dobitnika Nobelove nagrade po području?
+\item Kakav je omjer muškaraca i žena koji su dobitnici Nobelove nagrade?
+\item Kakva je statistika dobivenih Nobelovih nagrada po području za odabranu zemlju?
+\item Kako se raspodjela dobitnika Nobelovih nagrada mijenjala kroz godine po zemljama?
+\item Kako se raspodjela dobitnika Nobelovih nagrada mijenjala kroz godine po spolu?
+\end{itemize}
+Ova pitanja pružaju uvid u različite aspekte statistike Nobelovih nagrada i omogućuju da se razumije raspodjela nagrada na temelju različitih kriterija. Putem vizualizacije podataka, dobiva se cjelovita slika i bolje razumijevanje važnih trendova i karakteristika povezanih s Nobelovim nagradama.
+\subsection{Skica vizualizacije podataka}
+Glavni dio vizualizacije je interaktivna karta svijeta. Korisnik može odabrati za koju će se kategoriju, tj. Nobelovu nagradu prikazati podaci na karti. Prelaskom mišem preko određene zemlje prikazuje se \textit{pop-up} s podatkom o imenu zemlje te broju osvojenih nagrada za odabranu kategoriju. Klikom na isu zemlju pored karte se prikazuje tortni dijagram koji prikazuje raspodjelu osvojenih nagrada po spolu. Uz navedeno radi estetike implementirat će se i tranzicije/animacije.
+\subsection{Pregled postojećih rješenja}
+\subsection{Boje i podaci}
+Prilikom vizualizacije koristit će se jedna odabrana paleta boja, kako bi sve vizualizacije bile ujednačene I kako ne bi bilo previše boja, što bi uzrokovalo dodatne nejasnoće (promatrači će bojama pridavati određeno značenje I kontekst, a previše boja bi stvorilo previše nejasnoća I dodanog šuma u informaciji koju želimo prenijeti). Konkretno, s obzirom da je riječ o prepoznatljivom brendu, koristi će se paleta boja koja je tipična za sve vizuale koji sadrže nobelovu nagradu.
+\newpage
+\section{Izrada prototipne vizualizacije podataka}
+\subsection{Osnovne funkcionalnosti i ponašanja}
+\subsection{Napredne funkcionalnosti i ponašanja}
+\subsection{Implementacija osnovnih funkcionalnosti}
+\subsection{Implementacija osnovnog ponašanja}
+\newpage
+\section{Izrada konačne vizualizacije podataka}
+\subsection{Implementacija osnovnih funkcionalnosti}
+\subsection{Implementacija osnovnog ponašanja}
+\subsection{Implementacija naprednih funkcionalnosti}
+\subsection{Implementacija naprednog ponašanja}
+\newpage
+\printbibliography
+\addcontentsline{toc}{section}{Literatura}
+\end{document}
