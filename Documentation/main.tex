@@ -18,6 +18,7 @@
 \usepackage{algpseudocode}
 \usepackage{lscape}
 \usepackage{multicol}
+\usepackage{enumitem}
 % klikabilan TOC i reference
 \usepackage[croatian]{babel}
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
@@ -81,7 +82,7 @@ bottom = 25mm
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\leftmark}
-\fancyhead[R]{Projektni zadatak - Luka Kaučić}
+\fancyhead[R]{Luka Kaučić}
 \fancyfoot[R]{\thepage}
 
 % Define custom colors
@@ -89,45 +90,42 @@ bottom = 25mm
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{backcolor}{rgb}{0.95,0.95,0.95}
 
-% Define custom style for the listings
-\lstdefinestyle{arduino}{
-    language=C++,
-    basicstyle=\ttfamily\footnotesize,
-    keywordstyle=\color{blue},
-    stringstyle=\color{codegreen},
-    commentstyle=\color{codegray},
-    backgroundcolor=\color{backcolor},
-    showstringspaces=false,
-    breaklines=true,
-    frame=tb,
-    numbers=left,
-    numberstyle=\tiny\color{codegray},
-    xleftmargin=0.5cm,
-    framexleftmargin=0.5em,
-    aboveskip=1.5em,
-    belowskip=1.5em,
-    captionpos=b,
-    escapeinside={(*}{*)},
+% Define JavaScript language settings for listings package
+\lstdefinelanguage{JavaScript}{
+    keywords={const, let, var, function, new, if, else, for, while, do, switch, case, break, continue, return},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={class, export, boolean, throw, implements, import, this},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\color{olive}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
 }
 
-\lstdefinestyle{python}{
-  language=Python,
-  basicstyle=\ttfamily\footnotesize,
-  keywordstyle=\color{blue},
-  stringstyle=\color{codegreen},
-  commentstyle=\color{codegray},
-  backgroundcolor=\color{backcolor},
-  showstringspaces=false,
-  breaklines=true,
-  frame=tb,
-  numbers=left,
-  numberstyle=\tiny\color{codegray},
-  xleftmargin=0.5cm,
-  framexleftmargin=0.5em,
-  aboveskip=1.5em,
-  belowskip=1.5em,
-  captionpos=b,
-  escapeinside={(*}{*)},
+% Set default settings for code listings
+\lstset{
+    language=JavaScript,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{purple}\itshape,
+    stringstyle=\color{olive},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b,
+    xleftmargin=16pt,
+    framexleftmargin=16pt,
+    framexrightmargin=0pt,
+    framexbottommargin=4pt,
+    framextopmargin=4pt,
 }
 
 \renewcommand{\lstlistingname}{Izlistanje}
@@ -239,17 +237,66 @@ U ovom poglavlju će se pružiti pregled različitih izvora i resursa koji su se
 \subsection{Boje i podaci}
 Prilikom vizualizacije koristit će se jedna odabrana paleta boja, kako bi sve vizualizacije bile ujednačene I kako ne bi bilo previše boja, što bi uzrokovalo dodatne nejasnoće (promatrači će bojama pridavati određeno značenje I kontekst, a previše boja bi stvorilo previše nejasnoća I dodanog šuma u informaciji koju želimo prenijeti). Konkretno, s obzirom da je riječ o prepoznatljivom brendu, koristi će se paleta boja koja je tipična za sve vizuale koji sadrže nobelovu nagradu.
 \newpage
-\section{Izrada prototipne vizualizacije podataka}
-\subsection{Osnovne funkcionalnosti i ponašanja}
-\subsection{Napredne funkcionalnosti i ponašanja}
-\subsection{Implementacija osnovnih funkcionalnosti}
-\subsection{Implementacija osnovnog ponašanja}
+\section{Izrada vizualizacije podataka}
+Funkcionalnost se odnosi na mogućnosti ili akcije koje mogu biti izvršene pomoću softverske biblioteke ili okvira kao što je D3.js. Opisuje se što je biblioteka sposobna napraviti ili zadaci koje mogu biti obavljeni. U kontekstu D3.js, funkcionalnost može uključivati učitavanje podataka, manipulaciju podacima, stvaranje vizualizacija, obradu događaja i druge zadatke koji mogu biti postignuti korištenjem mogućnosti i metoda D3.js. S druge strane, ponašanje (behavior) u D3.js odnosi se na konkretne akcije ili odgovore koji su iskazani od strane stvorenih vizualnih elemenata ili komponenti pomoću D3.js-a. Opisuje se kako se elementi ili komponente ponašaju ili interaktiraju s korisničkim unosima, događajima ili promjenama podataka. Ponašanje u D3.js odnosi se na to kako vizualizacije reagiraju na korisničke interakcije kao što su događaji mouseover, klikovi, prijelazi ili animacije. U nastavku su izlistane osnovne i napredne funckionalnosti i ponašanja koje rješenje nudi, kao i implementacija osnovnih funkcionalnosti koje su potrebne za prototip vizualizacije.
+\subsection{Jednostavne/složene funkcionalnosti i ponašanja}
+Kroz praćenje kolegija, kao i kroz konzultacije s OpenAI modelom \cite{gpt3.5}, sastavljen je popis osnovnih i naprednih funkcionalnosti i ponašanja implementiranih u ovom radu:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Jednostavne (osnovne) funkcionalnosti}
+  \begin{itemize}
+    \item Definiraju se širina i visina kontejnera karte.
+    \item Definira se putanja do GeoJSON datoteke.
+    \item GeoJSON datoteka se učitava.
+    \item CSV podaci se učitavaju i parsiraju.
+    \item Postavlja se kontejner karte.
+    \item Definira se projekcija i generator putanje.
+    \item Stvara se SVG element za kartu.
+    \item Stvara se element za prikazivanje tooltipa.
+    \item Definira se trenutna kategorija.
+    \item Ažuriraju se boje karte na temelju podataka.
+    \item Inicijalno ažuriranje boja karte se poziva.
+    \item Rukuje se događajem promjene odabira kategorije.
+    \item Rukuje se događajem zumiranja.
+  \end{itemize}
+
+  \item \textbf{Kompleksne funkcionalnosti}
+  \begin{itemize}
+    \item Podaci se filtriraju na temelju odabrane kategorije.
+    \item Podaci se grupiraju po zemlji i računaju se statistike.
+    \item Stvara se skala boja za kartu.
+    \item Crtaju se karte uz prijelaze.
+    \item Putanja se ažurira uz prijelaz.
+    \item Boja putanje se ažurira uz prijelaz.
+    \item Rukuje se događajem klika za generiranje kružnog dijagrama za odabranu zemlju.
+    \item Generira se kružni dijagram za odabranu zemlju.
+    \item Briše se postojeći kružni dijagram.
+    \item Podaci se filtriraju za odabranu zemlju i kategoriju.
+    \item Podaci se grupiraju po spolu i računaju se statistike.
+    \item Definiraju se dimenzije kružnog dijagrama.
+    \item Stvara se SVG element za kružni dijagram.
+    \item Definira se skala boja za kružni dijagram.
+    \item Generiraju se podaci za kružni dijagram.
+    \item Definira se raspored kružnog dijagrama.
+    \item Generiraju se lukovi kružnog dijagrama.
+    \item Crtaju se dijelovi kružnog dijagrama uz prijelaze.
+    \item Dodaju se oznake na dijelove kružnog dijagrama.
+    \item Dodaje se naslov kružnom dijagramu.
+  \end{itemize}
+
+  \item \textbf{Jednostavna (osnovna) ponašanja}
+  \begin{itemize}
+    \item Prikazuje se tooltip pri pomicanju miša iznad putanje.
+    \item Tooltip se skriva kada miš napusti putanju.
+  \end{itemize}
+
+  \item \textbf{Kompleksna ponašanja}
+  \begin{itemize}
+    \item Lukovi kružnog dijagrama se interpoliraju radi glatkog prijelaza.
+  \end{itemize}
+\end{enumerate}
+\subsection{Implementacija programske podrške}
+\lstinputlisting[caption={JavaScript code snippet}, label={lst:javascript_code}]{script.js}
 \newpage
-\section{Izrada konačne vizualizacije podataka}
-\subsection{Implementacija osnovnih funkcionalnosti}
-\subsection{Implementacija osnovnog ponašanja}
-\subsection{Implementacija naprednih funkcionalnosti}
-\subsection{Implementacija naprednog ponašanja}
 \newpage
 \printbibliography
 \addcontentsline{toc}{section}{Literatura}

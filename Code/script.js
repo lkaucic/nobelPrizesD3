@@ -1,37 +1,28 @@
 // Define the width and height of the map container
 var mapWidth = 1040;
 var mapHeight = 650;
-
 // Define the path to your GeoJSON file
 var geojsonPath = "world_map.geojson";
-
 // Load the GeoJSON file
 d3.json(geojsonPath).then(function (geojson) {
-
   // Load and parse the CSV data
   d3.csv("manipulated_data.csv").then(function (data) {
-
     // Set up the map container
     var mapContainer = d3.select("#map-container");
-
     // Define the projection and path generator
     var projection = d3.geoMercator()
       .fitSize([mapWidth, mapHeight], geojson);
     var pathGenerator = d3.geoPath().projection(projection);
-
     // Create SVG element for the map
     var svg = mapContainer.append("svg")
       .attr("width", mapWidth)
       .attr("height", mapHeight);
-
     // Create tooltip element
     var tooltip = d3.select("body").append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
-
     // Define the current category
     var currentCategory = "Category1"; // Set the initial category
-
     // Update the map colors based on the data
     function updateMapColors() {
       // Data manipulation and processing here
@@ -41,7 +32,6 @@ d3.json(geojsonPath).then(function (geojson) {
       var filteredData = data.filter(function (d) {
         return d.category === filterCategory;
       });
-
       // Group data by country and calculate statistics (e.g., count)
       var countryData = d3.group(filteredData, function (d) { return d.bornCountryCode; });
       countryData = Array.from(countryData, function ([key, values]) {
@@ -133,29 +123,24 @@ d3.json(geojsonPath).then(function (geojson) {
       currentCategory = d3.select(this).property("value");
       updateMapColors();
     });
-
     // Handle zoom event
     var zoom = d3.zoom()
       .scaleExtent([1, 8])
       .on("zoom", zoomed);
 
     svg.call(zoom);
-
     // Zoom event handler function
     function zoomed() {
       mapGroup.attr("transform", d3.event.transform);
     }
-
     // Generate pie chart for the selected country
     function generatePieChart(country, category) {
       // Clear any existing pie chart
       d3.select("#popup-content").html("");
-
       // Filter the data for the selected country and category
       var filteredData = data.filter(function (d) {
         return d.bornCountryCode === country.bornCountryCode && d.category === category;
       });
-
       // Group data by gender and calculate statistics (e.g., count)
       var genderData = d3.group(filteredData, function (d) { return d.gender; });
       genderData = Array.from(genderData, function ([key, values]) {
@@ -165,12 +150,10 @@ d3.json(geojsonPath).then(function (geojson) {
           // Calculate other statistics as needed
         };
       });
-
       // Define pie chart dimensions
       var pieWidth = 400;
       var pieHeight = 400;
       var pieRadius = Math.min(pieWidth, pieHeight) / 2;
-
       // Create SVG element for the pie chart
       var pieSvg = d3.select("#popup-content")
         .append("svg")
@@ -178,7 +161,6 @@ d3.json(geojsonPath).then(function (geojson) {
         .attr("height", pieHeight)
         .append("g")
         .attr("transform", "translate(" + pieWidth / 2 + "," + pieHeight / 2 + ")");
-
       // Define pie chart color scale
       var pieColorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -193,7 +175,6 @@ d3.json(geojsonPath).then(function (geojson) {
       var arc = d3.arc()
         .innerRadius(0)
         .outerRadius(pieRadius);
-
       // Draw pie chart slices
       var slices = pieSvg.selectAll("path")
         .data(pie(pieData))
@@ -212,7 +193,6 @@ d3.json(geojsonPath).then(function (geojson) {
               return arc(interpolate(t));
             };
           }));
-
       // Add labels to the pie chart slices
       var labels = pieSvg.selectAll("text")
         .data(pie(pieData))
@@ -230,7 +210,6 @@ d3.json(geojsonPath).then(function (geojson) {
         .transition()
         .duration(800)
         .style("opacity", 1);
-
       // Add a title to the pie chart
       pieSvg.append("text")
         .attr("text-anchor", "middle")
